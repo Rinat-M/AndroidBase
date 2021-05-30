@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <EditText
+        android:id="@+id/edit_text1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/input_type_text"
+        android:importantForAutofill="no"
+        android:inputType="text"
+        android:padding="@dimen/padding_normal"
+        android:textAlignment="center" />
+
+    <EditText
+        android:id="@+id/edit_text2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/input_type_text_person_name"
+        android:importantForAutofill="no"
+        android:inputType="textPersonName"
+        android:padding="@dimen/padding_normal"
+        android:textAlignment="center" />
+
+    <EditText
+        android:id="@+id/edit_text3"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/input_type_phone"
+        android:importantForAutofill="no"
+        android:inputType="phone"
+        android:padding="@dimen/padding_normal"
+        android:textAlignment="center" />
+
+    <EditText
+        android:id="@+id/edit_text4"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/input_type_number"
+        android:importantForAutofill="no"
+        android:inputType="number"
+        android:padding="@dimen/padding_normal"
+        android:textAlignment="center" />
+
+    <EditText
+        android:id="@+id/edit_text5"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/input_type_text_password"
+        android:importantForAutofill="no"
+        android:inputType="textPassword"
+        android:padding="@dimen/padding_normal"
+        android:textAlignment="center" />
+
+    <EditText
+        android:id="@+id/edit_text6"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/input_type_text_email_address"
+        android:importantForAutofill="no"
+        android:inputType="textEmailAddress"
+        android:padding="@dimen/padding_normal"
+        android:textAlignment="center" />
+
+    <EditText
+        android:id="@+id/edit_text7"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/input_type_text_cap_words"
+        android:importantForAutofill="no"
+        android:inputType="textCapWords"
+        android:padding="@dimen/padding_normal"
+        android:textAlignment="center" />
+
+    <EditText
+        android:id="@+id/edit_text8"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/input_type_text_cap_characters"
+        android:importantForAutofill="no"
+        android:inputType="textCapCharacters"
+        android:padding="@dimen/padding_normal"
+        android:textAlignment="center" />
+
+</LinearLayout>

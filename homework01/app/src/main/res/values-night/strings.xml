@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="hello_world">Hello World!</string>
+    <string name="button">Button</string>
+    <string name="some_text">Some text</string>
+    <string name="checkbox">Checkbox</string>
+    <string name="switch_compat">Switch compat</string>
+    <string name="ems_explanation">Work with android:ems attribute</string>
+    <string name="input_type_text">input type: text</string>
+    <string name="input_type_text_person_name">input type: textPersonName</string>
+    <string name="input_type_phone">input type: phone</string>
+    <string name="input_type_number">input type: number</string>
+    <string name="input_type_text_password">input type: textPassword</string>
+    <string name="input_type_text_email_address">input type: textEmailAddress</string>
+    <string name="input_type_text_cap_words">input type: textCapWords</string>
+    <string name="input_type_text_cap_characters">input type: textCapCharacters</string>
+</resources>
