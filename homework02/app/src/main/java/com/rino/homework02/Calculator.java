@@ -118,11 +118,16 @@ public class Calculator implements Parcelable {
 
     public void applyOperation(Operation selectedOperation) {
         if (operation == null || isCalculated) {
+            if (selectedOperation != Operation.CALCULATE) {
+                operation = selectedOperation;
+            } else {
+                return;
+            }
+
             isCalculated = false;
             operand2 = "";
 
             operand1 = currentInput.toString();
-            operation = selectedOperation;
 
             resetCurrentInputValueTo("0");
 
@@ -154,27 +159,18 @@ public class Calculator implements Parcelable {
 
         switch (operation) {
             case PERCENT:
-                assert number1 != null;
                 operationResult = number1.doubleValue() / 100;
                 break;
             case DIVIDE:
-                assert number1 != null;
-                assert number2 != null;
                 operationResult = number1.doubleValue() / number2.doubleValue();
                 break;
             case MULTIPLY:
-                assert number1 != null;
-                assert number2 != null;
                 operationResult = number1.doubleValue() * number2.doubleValue();
                 break;
             case MINUS:
-                assert number1 != null;
-                assert number2 != null;
                 operationResult = number1.doubleValue() - number2.doubleValue();
                 break;
             case PLUS:
-                assert number1 != null;
-                assert number2 != null;
                 operationResult = number1.doubleValue() + number2.doubleValue();
                 break;
             case CALCULATE:
