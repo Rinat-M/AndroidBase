@@ -2,5 +2,6 @@
 <resources>
     <dimen name="padding_margin_normal">16dp</dimen>
     <dimen name="output_line_text_size">44sp</dimen>
-    <dimen name="button_text_size">18sp</dimen>
+    <dimen name="button_text_size">24sp</dimen>
+    <dimen name="additional_output_line_size">30sp</dimen>
 </resources>

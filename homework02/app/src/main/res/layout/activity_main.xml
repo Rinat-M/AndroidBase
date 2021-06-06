@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/black"
     tools:context=".MainActivity">
 
     <ImageView
@@ -13,6 +14,30 @@
         android:contentDescription="@string/background_picture_lamps"
         android:scaleType="centerCrop"
         android:src="@drawable/lamp" />
+
+    <View
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:background="@color/black_with_alpha"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/center_guideline" />
+
+    <TextView
+        android:id="@+id/additional_output_line_text_view"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:gravity="bottom|end"
+        android:padding="@dimen/padding_margin_normal"
+        android:textColor="@color/white"
+        android:background="@color/black_with_alpha"
+        android:textSize="@dimen/additional_output_line_size"
+        app:layout_constraintBottom_toTopOf="@id/additional_guideline"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="1258 * 95 = 119510" />
 
     <TextView
         android:id="@+id/output_line_text_view"
@@ -26,7 +51,23 @@
         app:layout_constraintBottom_toBottomOf="@id/center_guideline"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@id/additional_guideline" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/grey"
+        app:layout_constraintBottom_toTopOf="@id/center_guideline"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/output_line_text_view" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/additional_guideline"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.25" />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/center_guideline"
@@ -41,7 +82,7 @@
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:text="@string/button_ac"
-        android:textColor="@color/red"
+        android:textColor="@color/orange_red"
         android:textSize="@dimen/button_text_size"
         app:layout_constraintBottom_toTopOf="@id/button_7"
         app:layout_constraintHorizontal_chainStyle="packed"
@@ -50,19 +91,18 @@
         app:layout_constraintTop_toBottomOf="@id/center_guideline"
         app:layout_constraintVertical_chainStyle="packed" />
 
-    <Button
+    <ImageButton
         android:id="@+id/button_backspace"
         style="?android:attr/borderlessButtonStyle"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:text="@string/button_backspace"
-        android:textColor="@color/red"
-        android:textSize="@dimen/button_text_size"
+        android:contentDescription="@string/button_backspace"
         app:layout_constraintBottom_toTopOf="@id/button_8"
         app:layout_constraintLeft_toRightOf="@id/button_ac"
         app:layout_constraintRight_toLeftOf="@id/button_percent"
         app:layout_constraintTop_toBottomOf="@id/center_guideline"
-        app:layout_constraintVertical_chainStyle="packed" />
+        app:layout_constraintVertical_chainStyle="packed"
+        app:srcCompat="@drawable/ic_backspace_24dp" />
 
     <Button
         android:id="@+id/button_percent"
@@ -70,7 +110,7 @@
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:text="@string/button_percent"
-        android:textColor="@color/red"
+        android:textColor="@color/orange_red"
         android:textSize="@dimen/button_text_size"
         app:layout_constraintBottom_toTopOf="@id/button_9"
         app:layout_constraintLeft_toRightOf="@id/button_backspace"
@@ -84,7 +124,7 @@
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:text="@string/divide"
-        android:textColor="@color/red"
+        android:textColor="@color/orange_red"
         android:textSize="@dimen/button_text_size"
         app:layout_constraintBottom_toTopOf="@id/button_multiply"
         app:layout_constraintLeft_toRightOf="@id/button_percent"
@@ -135,7 +175,7 @@
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:text="@string/multiply"
-        android:textColor="@color/red"
+        android:textColor="@color/orange_red"
         android:textSize="@dimen/button_text_size"
         app:layout_constraintBottom_toTopOf="@id/button_minus"
         app:layout_constraintLeft_toRightOf="@id/button_9"
@@ -186,7 +226,7 @@
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:text="@string/minus"
-        android:textColor="@color/red"
+        android:textColor="@color/orange_red"
         android:textSize="@dimen/button_text_size"
         app:layout_constraintBottom_toTopOf="@id/button_plus"
         app:layout_constraintLeft_toRightOf="@id/button_6"
@@ -236,7 +276,7 @@
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:text="@string/plus"
-        android:textColor="@color/red"
+        android:textColor="@color/orange_red"
         android:textSize="@dimen/button_text_size"
         app:layout_constraintBottom_toTopOf="@id/button_calculate"
         app:layout_constraintLeft_toRightOf="@id/button_3"
@@ -287,7 +327,7 @@
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:text="@string/equal"
-        android:textColor="@color/red"
+        android:textColor="@color/orange_red"
         android:textSize="@dimen/button_text_size"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toRightOf="@id/button_comma"
