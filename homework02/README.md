@@ -30,10 +30,10 @@
 3. Реализовал полностью рабочий функционал калькулятора. 
 
 ## Portrait mode
-![portrait](images/Screenshot_1622988564.png)
+![portrait](images/Screenshot_1622988554.png)
 
 ## Landscape mode
-![landscape](images/Screenshot_1622988554.png)
+![landscape](images/Screenshot_1622988564.png)
 
 ## Demo
 ![demo](images/homework03_demo_screencast.gif)
