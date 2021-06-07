@@ -204,7 +204,7 @@
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:text="@string/_1"
-        app:layout_constraintBottom_toTopOf="@id/button_dummy"
+        app:layout_constraintBottom_toTopOf="@id/button_day_night_mode"
         app:layout_constraintHorizontal_chainStyle="packed"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toLeftOf="@id/button_2"
@@ -242,10 +242,11 @@
         app:layout_constraintTop_toBottomOf="@id/button_minus" />
 
     <com.google.android.material.button.MaterialButton
-        android:id="@+id/button_dummy"
+        android:id="@+id/button_day_night_mode"
+        style="@style/DayNightButtonStyle"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:enabled="false"
+        app:icon="@drawable/ic_lamp_24dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintHorizontal_chainStyle="packed"
         app:layout_constraintLeft_toLeftOf="parent"
@@ -258,7 +259,7 @@
         android:layout_height="0dp"
         android:text="@string/_0"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toRightOf="@id/button_dummy"
+        app:layout_constraintLeft_toRightOf="@id/button_day_night_mode"
         app:layout_constraintRight_toLeftOf="@id/button_comma"
         app:layout_constraintTop_toBottomOf="@id/button_2" />
 

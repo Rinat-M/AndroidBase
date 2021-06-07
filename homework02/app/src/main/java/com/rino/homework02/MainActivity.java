@@ -1,11 +1,13 @@
 package com.rino.homework02;
 
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatDelegate;
 
 import com.google.android.material.button.MaterialButton;
 
@@ -14,6 +16,8 @@ import org.jetbrains.annotations.NotNull;
 
 public class MainActivity extends AppCompatActivity {
     private static final String CALCULATOR_KEY = "CALCULATOR_KEY";
+    private static final String IS_NIGHT_MODE_ENABLED = "IS_NIGHT_MODE_ENABLED";
+    private static final String CALCULATOR_SHARED_PREFERENCES = "CALCULATOR_SHARED_PREFERENCES";
 
     private Calculator calculator;
 
@@ -32,6 +36,9 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        applyTheme();
+
         setContentView(R.layout.activity_main);
 
         calculator = new Calculator();
@@ -102,6 +109,9 @@ public class MainActivity extends AppCompatActivity {
 
         MaterialButton buttonCalculate = findViewById(R.id.button_calculate);
         buttonCalculate.setOnClickListener(view -> applyOperationAndUpdateOutputLines(Operation.CALCULATE));
+
+        MaterialButton buttonDayNightMode = findViewById(R.id.button_day_night_mode);
+        buttonDayNightMode.setOnClickListener(view -> changeDayNightMode());
     }
 
     private void applyOperationAndUpdateOutputLines(Operation operation) {
@@ -112,6 +122,33 @@ public class MainActivity extends AppCompatActivity {
     private void updateOutputLines() {
         outputLineTextView.setText(calculator.getCurrentInput());
         additionalOutputLineTextView.setText(calculator.getInfoAboutCurrentOperation());
+    }
+
+
+    private void changeDayNightMode() {
+        saveThemeConfiguration(!isNightModeEnabled());
+        applyTheme();
+        recreate();
+    }
+
+    private void applyTheme() {
+        if (isNightModeEnabled()) {
+            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
+        } else {
+            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
+        }
+    }
+
+    private boolean isNightModeEnabled() {
+        SharedPreferences sharedPref = getSharedPreferences(CALCULATOR_SHARED_PREFERENCES, MODE_PRIVATE);
+        return sharedPref.getBoolean(IS_NIGHT_MODE_ENABLED, true);
+    }
+
+    private void saveThemeConfiguration(boolean isNightModeEnabled) {
+        SharedPreferences sharedPref = getSharedPreferences(CALCULATOR_SHARED_PREFERENCES, MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPref.edit();
+        editor.putBoolean(IS_NIGHT_MODE_ENABLED, isNightModeEnabled);
+        editor.apply();
     }
 
     @Override
