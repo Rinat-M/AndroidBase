@@ -3,10 +3,11 @@ package com.rino.homework02;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
-import android.widget.ImageButton;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
+
+import com.google.android.material.button.MaterialButton;
 
 import org.jetbrains.annotations.NotNull;
 
@@ -55,18 +56,18 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void initNumberButtonViews() {
-        Button button0 = findViewById(R.id.button_0);
-        Button button1 = findViewById(R.id.button_1);
-        Button button2 = findViewById(R.id.button_2);
-        Button button3 = findViewById(R.id.button_3);
-        Button button4 = findViewById(R.id.button_4);
-        Button button5 = findViewById(R.id.button_5);
-        Button button6 = findViewById(R.id.button_6);
-        Button button7 = findViewById(R.id.button_7);
-        Button button8 = findViewById(R.id.button_8);
-        Button button9 = findViewById(R.id.button_9);
+        MaterialButton button0 = findViewById(R.id.button_0);
+        MaterialButton button1 = findViewById(R.id.button_1);
+        MaterialButton button2 = findViewById(R.id.button_2);
+        MaterialButton button3 = findViewById(R.id.button_3);
+        MaterialButton button4 = findViewById(R.id.button_4);
+        MaterialButton button5 = findViewById(R.id.button_5);
+        MaterialButton button6 = findViewById(R.id.button_6);
+        MaterialButton button7 = findViewById(R.id.button_7);
+        MaterialButton button8 = findViewById(R.id.button_8);
+        MaterialButton button9 = findViewById(R.id.button_9);
 
-        Button buttonComma = findViewById(R.id.button_comma);
+        MaterialButton buttonComma = findViewById(R.id.button_comma);
 
         Utils.setOnClickListenerForManyButtons(
                 numberButtonOnClickListener,
@@ -75,7 +76,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void initOperationButtonViews() {
-        ImageButton buttonBackspace = findViewById(R.id.button_backspace);
+        MaterialButton buttonBackspace = findViewById(R.id.button_backspace);
         buttonBackspace.setOnClickListener(view -> outputLineTextView.setText(calculator.removeLastInputValue()));
 
         Button buttonAC = findViewById(R.id.button_ac);
@@ -84,22 +85,22 @@ public class MainActivity extends AppCompatActivity {
             updateOutputLines();
         });
 
-        Button buttonPercent = findViewById(R.id.button_percent);
+        MaterialButton buttonPercent = findViewById(R.id.button_percent);
         buttonPercent.setOnClickListener(view -> applyOperationAndUpdateOutputLines(Operation.PERCENT));
 
-        Button buttonMultiply = findViewById(R.id.button_multiply);
+        MaterialButton buttonMultiply = findViewById(R.id.button_multiply);
         buttonMultiply.setOnClickListener(view -> applyOperationAndUpdateOutputLines(Operation.MULTIPLY));
 
-        Button buttonDivide = findViewById(R.id.button_divide);
+        MaterialButton buttonDivide = findViewById(R.id.button_divide);
         buttonDivide.setOnClickListener(view -> applyOperationAndUpdateOutputLines(Operation.DIVIDE));
 
-        Button buttonMinus = findViewById(R.id.button_minus);
+        MaterialButton buttonMinus = findViewById(R.id.button_minus);
         buttonMinus.setOnClickListener(view -> applyOperationAndUpdateOutputLines(Operation.MINUS));
 
-        Button buttonPlus = findViewById(R.id.button_plus);
+        MaterialButton buttonPlus = findViewById(R.id.button_plus);
         buttonPlus.setOnClickListener(view -> applyOperationAndUpdateOutputLines(Operation.PLUS));
 
-        Button buttonCalculate = findViewById(R.id.button_calculate);
+        MaterialButton buttonCalculate = findViewById(R.id.button_calculate);
         buttonCalculate.setOnClickListener(view -> applyOperationAndUpdateOutputLines(Operation.CALCULATE));
     }
 
