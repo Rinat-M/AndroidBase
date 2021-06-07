@@ -15,8 +15,46 @@
         <item name="android:colorControlHighlight">@color/dark_grey</item>
     </style>
 
-    <style name="Theme.Homework02.NoActionBar">
+    <style name="Theme.Homework02.NoActionBar" parent="Theme.Homework02">
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
+        <item name="materialButtonStyle">@style/NumberButtonStyle</item>
+        <item name="android:textViewStyle">@style/OutputTextStyle</item>
+    </style>
+
+    <style name="NumberButtonStyle" parent="Widget.MaterialComponents.Button.TextButton">
+        <item name="android:textSize">@dimen/button_text_size</item>
+    </style>
+
+    <style name="OperationButtonStyle" parent="NumberButtonStyle">
+        <item name="android:textColor">@color/orange_red</item>
+        <item name="iconGravity">textStart</item>
+        <item name="iconTint">@color/orange_red</item>
+    </style>
+
+    <style name="BackgroundImageStyle">
+        <item name="android:scaleType">centerCrop</item>
+        <item name="android:src">@drawable/lamp</item>
+    </style>
+
+    <style name="OutputTextStyle" parent="@android:style/Widget.TextView">
+        <item name="android:gravity">bottom|end</item>
+        <item name="android:padding">@dimen/padding_margin_normal</item>
+        <item name="android:textColor">@color/white</item>
+        <item name="android:textSize">@dimen/output_line_text_size</item>
+    </style>
+
+    <style name="AdditionalOutputTextStyle" parent="OutputTextStyle">
+        <item name="android:background">@color/black_with_alpha</item>
+        <item name="android:textSize">@dimen/additional_output_line_size</item>
+    </style>
+
+    <style name="DividerStyle">
+        <item name="android:layout_height">@dimen/divider_height</item>
+        <item name="android:background">@color/grey</item>
+    </style>
+
+    <style name="BackgroundForNumbersAndOperations">
+        <item name="android:background">@color/black_with_alpha</item>
     </style>
 </resources>
