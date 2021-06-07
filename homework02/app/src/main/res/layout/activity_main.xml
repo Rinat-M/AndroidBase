@@ -55,7 +55,7 @@
 
     <View
         android:layout_width="match_parent"
-        android:layout_height="1dp"
+        android:layout_height="@dimen/divider_height"
         android:background="@color/grey"
         app:layout_constraintBottom_toTopOf="@id/center_guideline"
         app:layout_constraintLeft_toLeftOf="parent"
