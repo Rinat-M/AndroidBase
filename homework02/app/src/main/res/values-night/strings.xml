@@ -19,5 +19,5 @@
     <string name="plus">+</string>
     <string name="comma">,</string>
     <string name="equal">=</string>
-    <string name="background_picture_lamps">background picture - lamps</string>
+    <string name="background_picture">background picture</string>
 </resources>
