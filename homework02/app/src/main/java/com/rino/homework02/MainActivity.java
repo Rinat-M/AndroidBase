@@ -1,12 +1,9 @@
 package com.rino.homework02;
 
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
-
-import androidx.appcompat.app.AppCompatDelegate;
 
 import com.google.android.material.button.MaterialButton;
 
@@ -116,33 +113,6 @@ public class MainActivity extends BaseActivity {
     private void updateOutputLines() {
         outputLineTextView.setText(calculator.getCurrentInput());
         additionalOutputLineTextView.setText(calculator.getInfoAboutCurrentOperation());
-    }
-
-
-    private void changeDayNightMode() {
-        saveThemeConfiguration(!isNightModeEnabled());
-        applyTheme();
-        recreate();
-    }
-
-    private void applyTheme() {
-        if (isNightModeEnabled()) {
-            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
-        } else {
-            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
-        }
-    }
-
-    private boolean isNightModeEnabled() {
-        SharedPreferences sharedPref = getSharedPreferences(CALCULATOR_SHARED_PREFERENCES, MODE_PRIVATE);
-        return sharedPref.getBoolean(IS_NIGHT_MODE_ENABLED, true);
-    }
-
-    private void saveThemeConfiguration(boolean isNightModeEnabled) {
-        SharedPreferences sharedPref = getSharedPreferences(CALCULATOR_SHARED_PREFERENCES, MODE_PRIVATE);
-        SharedPreferences.Editor editor = sharedPref.edit();
-        editor.putBoolean(IS_NIGHT_MODE_ENABLED, isNightModeEnabled);
-        editor.apply();
     }
 
     @Override
