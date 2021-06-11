@@ -103,6 +103,9 @@ public class MainActivity extends BaseActivity {
 
         MaterialButton buttonDayNightMode = findViewById(R.id.button_day_night_mode);
         buttonDayNightMode.setOnClickListener(view -> changeDayNightMode());
+
+        MaterialButton buttonSettings = findViewById(R.id.button_settings);
+        buttonSettings.setOnClickListener(view -> SettingsActivity.startActivity(this));
     }
 
     private void applyOperationAndUpdateOutputLines(Operation operation) {

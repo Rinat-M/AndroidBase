@@ -33,4 +33,10 @@ public class BaseActivity extends AppCompatActivity implements Constants {
         editor.apply();
     }
 
+    @Override
+    public boolean onSupportNavigateUp() {
+        onBackPressed();
+        return true;
+    }
+
 }
