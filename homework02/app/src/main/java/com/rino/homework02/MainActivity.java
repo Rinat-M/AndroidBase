@@ -6,19 +6,13 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.app.AppCompatDelegate;
 
 import com.google.android.material.button.MaterialButton;
 
 import org.jetbrains.annotations.NotNull;
 
-
-public class MainActivity extends AppCompatActivity {
-    private static final String CALCULATOR_KEY = "CALCULATOR_KEY";
-    private static final String IS_NIGHT_MODE_ENABLED = "IS_NIGHT_MODE_ENABLED";
-    private static final String CALCULATOR_SHARED_PREFERENCES = "CALCULATOR_SHARED_PREFERENCES";
-
+public class MainActivity extends BaseActivity {
     private Calculator calculator;
 
     private TextView outputLineTextView;
