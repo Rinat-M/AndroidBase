@@ -21,8 +21,8 @@ public class MainActivity extends AppCompatActivity {
 
     private Calculator calculator;
 
-    TextView outputLineTextView;
-    TextView additionalOutputLineTextView;
+    private TextView outputLineTextView;
+    private TextView additionalOutputLineTextView;
 
     private final View.OnClickListener numberButtonOnClickListener = view -> {
         Button button = (Button) view;
