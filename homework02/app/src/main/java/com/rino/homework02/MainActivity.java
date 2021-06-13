@@ -28,8 +28,6 @@ public class MainActivity extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        applyTheme();
-
         setContentView(R.layout.activity_main);
 
         calculator = new Calculator();

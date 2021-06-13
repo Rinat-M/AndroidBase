@@ -1,11 +1,19 @@
 package com.rino.homework02;
 
 import android.content.SharedPreferences;
+import android.os.Bundle;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.app.AppCompatDelegate;
 
 public class BaseActivity extends AppCompatActivity implements Constants {
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+
+        applyTheme();
+    }
 
     protected void changeDayNightMode() {
         saveThemeConfiguration(!isNightModeEnabled());
