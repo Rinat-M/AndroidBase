@@ -17,7 +17,7 @@ public class Calculator implements Parcelable {
 
     private boolean isCalculated = false;
 
-    private Operation operation = null;
+    private Operation operation = Operation.NONE;
 
     private final DecimalFormat decimalFormat = new DecimalFormat("#,###.##########");
 
@@ -111,13 +111,13 @@ public class Calculator implements Parcelable {
         operand2 = "";
         operationResult = 0;
         isCalculated = false;
-        operation = null;
+        operation = Operation.NONE;
 
         resetCurrentInputValueTo("0");
     }
 
     public void applyOperation(Operation selectedOperation) {
-        if (operation == null || isCalculated) {
+        if (operation == Operation.NONE || isCalculated) {
             if (selectedOperation != Operation.CALCULATE) {
                 operation = selectedOperation;
             } else {
@@ -174,6 +174,7 @@ public class Calculator implements Parcelable {
                 operationResult = number1.doubleValue() + number2.doubleValue();
                 break;
             case CALCULATE:
+            case NONE:
                 invokeOperation();
                 break;
             default:
@@ -189,7 +190,7 @@ public class Calculator implements Parcelable {
 
         if (isCalculated) {
             resultString += operand1 + " " + operation + " " + operand2 + " = " + decimalFormat.format(operationResult);
-        } else if (operation != null) {
+        } else if (operation != Operation.NONE) {
             resultString += operand1 + " " + operation + " ";
         }
 

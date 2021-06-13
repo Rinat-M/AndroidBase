@@ -20,4 +20,6 @@
     <string name="comma">,</string>
     <string name="equal">=</string>
     <string name="background_picture">background picture</string>
+    <string name="dark_theme">Тёмная тема</string>
+    <string name="settings_title">Настройки</string>
 </resources>

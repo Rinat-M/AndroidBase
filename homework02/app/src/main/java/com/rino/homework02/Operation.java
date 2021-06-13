@@ -10,7 +10,8 @@ public enum Operation {
     MULTIPLY("*"),
     MINUS("-"),
     PLUS("+"),
-    CALCULATE("=");
+    CALCULATE("="),
+    NONE("NONE");
 
     private final String value;
 
