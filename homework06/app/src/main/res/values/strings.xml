@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">Заметки</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="note_title_hint">Заголовок заметки</string>
+    <string name="high_priority">Высший приоритет</string>
+    <string name="note_description">Описание заметки</string>
+</resources>
