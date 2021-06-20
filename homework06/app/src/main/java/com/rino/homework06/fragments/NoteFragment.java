@@ -3,6 +3,9 @@ package com.rino.homework06.fragments;
 import android.app.DatePickerDialog;
 import android.os.Bundle;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CheckBox;
@@ -13,10 +16,11 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
-import com.rino.homework06.entities.Note;
-import com.rino.homework06.utils.Observer;
-import com.rino.homework06.entities.Priority;
 import com.rino.homework06.R;
+import com.rino.homework06.entities.Note;
+import com.rino.homework06.entities.Priority;
+import com.rino.homework06.utils.Observer;
+import com.rino.homework06.utils.Utils;
 
 import java.util.Calendar;
 import java.util.Date;
@@ -42,7 +46,9 @@ public class NoteFragment extends Fragment implements Observer {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.fragment_note, container, false);
+        View view = inflater.inflate(R.layout.fragment_note, container, false);
+        setHasOptionsMenu(true);
+        return view;
     }
 
     @Override
@@ -56,6 +62,17 @@ public class NoteFragment extends Fragment implements Observer {
         if (currentNote != null) {
             updateNoteInfo();
         }
+    }
+
+    @Override
+    public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) {
+        inflater.inflate(R.menu.main_fragment, menu);
+
+        MenuItem actionSort = menu.findItem(R.id.action_sort);
+        actionSort.setVisible(false);
+
+        MenuItem actionSearch = menu.findItem(R.id.action_search);
+        actionSearch.setVisible(false);
     }
 
     private void initViews(@NonNull View rootView) {
@@ -103,5 +120,16 @@ public class NoteFragment extends Fragment implements Observer {
         if (currentNote != null && isViewInitialized) {
             updateNoteInfo();
         }
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        int itemId = item.getItemId();
+
+        if (itemId == R.id.action_delete || itemId == R.id.action_save) {
+            Utils.showToastShort(requireContext(), getString(R.string.not_implemented));
+        }
+
+        return super.onOptionsItemSelected(item);
     }
 }

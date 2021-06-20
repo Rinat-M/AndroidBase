@@ -8,4 +8,6 @@
     <string name="add">Добавить</string>
     <string name="sort">Сортировка</string>
     <string name="not_implemented">Функционал не реализован!</string>
+    <string name="delete">Удалить</string>
+    <string name="save">Сохранить</string>
 </resources>
