@@ -19,6 +19,7 @@ import androidx.fragment.app.FragmentManager;
 
 import com.google.android.material.navigation.NavigationView;
 import com.rino.homework06.entities.Note;
+import com.rino.homework06.fragments.AboutFragment;
 import com.rino.homework06.fragments.FragmentEnum;
 import com.rino.homework06.fragments.ListOfNotesFragment;
 import com.rino.homework06.fragments.NoteFragment;

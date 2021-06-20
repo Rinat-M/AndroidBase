@@ -1,4 +1,4 @@
-package com.rino.homework06;
+package com.rino.homework06.fragments;
 
 import android.os.Bundle;
 
@@ -13,6 +13,9 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+
+import com.rino.homework06.BuildConfig;
+import com.rino.homework06.R;
 
 public class AboutFragment extends Fragment {
     public static final String ABOUT_FRAGMENT_TAG = "ABOUT_FRAGMENT_TAG";
