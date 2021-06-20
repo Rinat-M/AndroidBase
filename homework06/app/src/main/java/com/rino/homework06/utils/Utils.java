@@ -1,4 +1,7 @@
-package com.rino.homework06;
+package com.rino.homework06.utils;
+
+import com.rino.homework06.entities.Note;
+import com.rino.homework06.entities.Priority;
 
 import java.util.ArrayList;
 import java.util.Date;

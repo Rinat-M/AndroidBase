@@ -9,6 +9,12 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 
+import com.rino.homework06.entities.Note;
+import com.rino.homework06.fragments.FragmentEnum;
+import com.rino.homework06.fragments.ListOfNotesFragment;
+import com.rino.homework06.fragments.NoteFragment;
+import com.rino.homework06.utils.Publisher;
+
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;

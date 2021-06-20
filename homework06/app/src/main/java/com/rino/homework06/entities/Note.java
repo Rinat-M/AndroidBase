@@ -1,4 +1,4 @@
-package com.rino.homework06;
+package com.rino.homework06.entities;
 
 import android.os.Parcel;
 import android.os.Parcelable;

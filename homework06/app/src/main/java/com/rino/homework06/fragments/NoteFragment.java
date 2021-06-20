@@ -1,4 +1,4 @@
-package com.rino.homework06;
+package com.rino.homework06.fragments;
 
 import android.app.DatePickerDialog;
 import android.os.Bundle;
@@ -12,6 +12,11 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+
+import com.rino.homework06.entities.Note;
+import com.rino.homework06.utils.Observer;
+import com.rino.homework06.entities.Priority;
+import com.rino.homework06.R;
 
 import java.util.Calendar;
 import java.util.Date;
