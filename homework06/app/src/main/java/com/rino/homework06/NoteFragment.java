@@ -16,14 +16,13 @@ import androidx.fragment.app.Fragment;
 import java.util.Calendar;
 import java.util.Date;
 
-public class NoteFragment extends Fragment {
+public class NoteFragment extends Fragment implements Observer {
 
     public static final String NOTE_FRAGMENT_TAG = "NOTE_FRAGMENT_TAG";
 
-    private static final String CURRENT_NOTE = "CURRENT_NOTE";
-
     private static final Calendar CALENDAR = Calendar.getInstance();
 
+    private boolean isViewInitialized = false;
     private Note currentNote;
 
     private EditText titleEditText;
@@ -31,37 +30,8 @@ public class NoteFragment extends Fragment {
     private CheckBox priorityCheckBox;
     private EditText textEditText;
 
-    public static NoteFragment newInstance(Note note) {
-        NoteFragment fragment = new NoteFragment();
-        Bundle args = new Bundle();
-        args.putParcelable(CURRENT_NOTE, note);
-        fragment.setArguments(args);
-        return fragment;
-    }
-
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-
-        if (getArguments() != null) {
-            currentNote = getArguments().getParcelable(CURRENT_NOTE);
-        }
-    }
-
-    @Override
-    public void onSaveInstanceState(@NonNull Bundle outState) {
-        super.onSaveInstanceState(outState);
-
-        outState.putParcelable(CURRENT_NOTE, currentNote);
-    }
-
-    @Override
-    public void onViewStateRestored(@Nullable Bundle savedInstanceState) {
-        super.onViewStateRestored(savedInstanceState);
-
-        if (savedInstanceState != null) {
-            currentNote = savedInstanceState.getParcelable(CURRENT_NOTE);
-        }
+    public static NoteFragment newInstance() {
+        return new NoteFragment();
     }
 
     @Override
@@ -76,7 +46,11 @@ public class NoteFragment extends Fragment {
 
         initViews(view);
 
-        updateNoteInfo();
+        isViewInitialized = true;
+
+        if (currentNote != null) {
+            updateNoteInfo();
+        }
     }
 
     private void initViews(@NonNull View rootView) {
@@ -115,5 +89,14 @@ public class NoteFragment extends Fragment {
 
             dialog.show();
         });
+    }
+
+    @Override
+    public void updateNote(Note note) {
+        currentNote = note;
+
+        if (currentNote != null && isViewInitialized) {
+            updateNoteInfo();
+        }
     }
 }

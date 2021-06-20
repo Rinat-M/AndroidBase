@@ -1,13 +1,13 @@
 package com.rino.homework06;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
 
 public class Publisher {
-    private final List<Observer> observers;
+    private final Set<Observer> observers;
 
     public Publisher() {
-        observers = new ArrayList<>();
+        observers = new HashSet<>();
     }
 
     public void subscribe(Observer observer) {

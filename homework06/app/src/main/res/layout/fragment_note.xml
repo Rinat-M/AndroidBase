@@ -25,6 +25,7 @@
         android:hint="@string/note_title_hint"
         android:inputType="text"
         android:padding="@dimen/padding_margin_normal"
+        android:saveEnabled="false"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -47,6 +48,7 @@
         android:enabled="false"
         android:gravity="center"
         android:layoutDirection="rtl"
+        android:saveEnabled="false"
         android:text="@string/high_priority"
         app:layout_constraintLeft_toRightOf="@id/guideline_vertical_center"
         app:layout_constraintRight_toRightOf="parent"
@@ -73,6 +75,7 @@
         android:hint="@string/note_description"
         android:inputType="textMultiLine"
         android:padding="@dimen/padding_margin_half"
+        android:saveEnabled="false"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
