@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:showIn="navigation_view">
+
+    <group
+        android:id="@+id/main_group"
+        android:checkableBehavior="single">
+        <item
+            android:id="@+id/action_notes"
+            android:icon="@drawable/ic_list"
+            android:orderInCategory="10"
+            android:title="@string/notes" />
+
+        <item
+            android:id="@+id/action_about"
+            android:icon="@drawable/ic_info"
+            android:orderInCategory="80"
+            android:title="@string/about" />
+    </group>
+
+    <item
+        android:id="@+id/action_settings"
+        android:icon="@drawable/ic_settings"
+        android:orderInCategory="100"
+        android:title="@string/settings" />
+
+</menu>

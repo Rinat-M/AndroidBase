@@ -4,7 +4,7 @@
 
     <item
         android:id="@+id/action_search"
-        android:icon="@drawable/ic_search_24dp"
+        android:icon="@drawable/ic_search"
         android:orderInCategory="5"
         android:title="@string/search"
         app:actionViewClass="androidx.appcompat.widget.SearchView"
@@ -12,7 +12,7 @@
 
     <item
         android:id="@+id/action_add"
-        android:icon="@drawable/ic_add_circle_24dp"
+        android:icon="@drawable/ic_add_circle"
         android:orderInCategory="10"
         android:title="@string/add"
         app:showAsAction="ifRoom" />
