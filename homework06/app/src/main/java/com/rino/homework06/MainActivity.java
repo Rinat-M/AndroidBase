@@ -1,11 +1,16 @@
 package com.rino.homework06;
 
+import android.annotation.SuppressLint;
 import android.content.res.Configuration;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuItem;
 
 import androidx.annotation.IdRes;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.SearchView;
+import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 
@@ -14,6 +19,7 @@ import com.rino.homework06.fragments.FragmentEnum;
 import com.rino.homework06.fragments.ListOfNotesFragment;
 import com.rino.homework06.fragments.NoteFragment;
 import com.rino.homework06.utils.Publisher;
+import com.rino.homework06.utils.Utils;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -50,12 +56,19 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        initToolbar();
+
         Configuration configuration = getResources().getConfiguration();
         isLandscape = configuration.orientation == Configuration.ORIENTATION_LANDSCAPE;
 
         configureFragmentMap();
 
         configureFragments();
+    }
+
+    private void initToolbar() {
+        Toolbar toolbar = findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
     }
 
     private void configureFragmentMap() {
@@ -133,6 +146,44 @@ public class MainActivity extends AppCompatActivity {
                     .remove(fragment)
                     .commit();
         }
+    }
+
+    @SuppressLint("NonConstantResourceId")
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        int itemId = item.getItemId();
+
+        switch (itemId) {
+            case R.id.action_add:
+            case R.id.action_sort:
+                Utils.showToastShort(MainActivity.this, getString(R.string.not_implemented));
+                break;
+        }
+
+        return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.main, menu);
+
+        MenuItem search = menu.findItem(R.id.action_search);
+        SearchView searchText = (SearchView) search.getActionView();
+
+        searchText.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                Utils.showToastShort(MainActivity.this, getString(R.string.not_implemented));
+                return true;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                return true;
+            }
+        });
+
+        return true;
     }
 
     @Override

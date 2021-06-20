@@ -1,5 +1,10 @@
 package com.rino.homework06.utils;
 
+import android.content.Context;
+import android.widget.Toast;
+
+import com.rino.homework06.MainActivity;
+import com.rino.homework06.R;
 import com.rino.homework06.entities.Note;
 import com.rino.homework06.entities.Priority;
 
@@ -49,5 +54,13 @@ public class Utils {
         );
 
         return notes;
+    }
+
+    public static void showToastShort(Context context, String message) {
+        showToast(context, message, Toast.LENGTH_SHORT);
+    }
+
+    public static void showToast(Context context, String message, int toastLength) {
+        Toast.makeText(context, message, toastLength).show();
     }
 }
