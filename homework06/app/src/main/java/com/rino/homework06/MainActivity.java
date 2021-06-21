@@ -162,21 +162,6 @@ public class MainActivity extends AppCompatActivity {
 
                 break;
         }
-
-
-//        if (isLandscape && selectedNote != null) {
-//            replaceFragment(FragmentEnum.NOTE, R.id.note_container);
-//        } else if (selectedNote != null) {
-//            replaceFragment(FragmentEnum.NOTE);
-//        } else {
-//            removeFragment(FragmentEnum.NOTE);
-//
-//            if (currentFragmentEntry == FragmentEnum.ABOUT) {
-//                replaceFragment(FragmentEnum.ABOUT);
-//            } else {
-//                replaceFragment(FragmentEnum.LIST_OF_NOTES);
-//            }
-//        }
     }
 
     @Override
