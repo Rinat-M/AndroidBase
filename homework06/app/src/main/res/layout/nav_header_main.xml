@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    style="@style/ThemeOverlay.AppCompat.Dark"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/nav_header_height"
+    android:background="@drawable/side_nav_bar"
+    android:gravity="bottom"
+    android:orientation="vertical"
+    android:padding="@dimen/padding_margin_normal">
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/nav_header_avatar"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:padding="@dimen/padding_margin_half"
+        app:srcCompat="@drawable/ic_account_circle" />
+
+    <TextView
+        android:id="@+id/nav_header_username"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:text="@string/user_name"
+        android:textColor="@color/red_500"
+        android:textSize="@dimen/nav_header_name_size" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:text="@string/user_position"
+        android:textColor="@color/red_500"
+        android:textSize="@dimen/nav_header_position" />
+
+</LinearLayout>

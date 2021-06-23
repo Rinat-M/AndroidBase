@@ -1,4 +1,4 @@
-package com.rino.homework06;
+package com.rino.homework06.fragments;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -11,6 +11,12 @@ import androidx.annotation.NonNull;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
+
+import com.rino.homework06.entities.Note;
+import com.rino.homework06.listeners.OnItemSelectedListener;
+import com.rino.homework06.entities.Priority;
+import com.rino.homework06.R;
+import com.rino.homework06.utils.Utils;
 
 import java.util.List;
 
