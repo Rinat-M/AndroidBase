@@ -1,48 +1,57 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/note_item_container"
     android:layout_width="match_parent"
     android:layout_height="@dimen/note_item_height"
     android:layout_margin="@dimen/note_item_margin"
-    android:background="@drawable/background_with_shadow">
+    app:cardCornerRadius="10dp"
+    app:cardElevation="3dp">
 
-    <View
-        android:id="@+id/priority"
-        android:layout_width="@dimen/note_priority_width"
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/note_item_container"
+        android:layout_width="match_parent"
         android:layout_height="match_parent"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:background="@color/red_500" />
+        android:background="?selectableItemBackground">
 
-    <TextView
-        android:id="@+id/title"
-        style="@style/NoteTitleTextStyle"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_margin="@dimen/padding_margin_normal"
-        android:ellipsize="end"
-        android:maxLines="2"
-        android:textColor="@color/black"
-        app:layout_constraintLeft_toRightOf="@id/priority"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:text="Заголовок заметки" />
+        <View
+            android:id="@+id/priority"
+            android:layout_width="@dimen/note_priority_width"
+            android:layout_height="match_parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:background="@color/red_500" />
 
-    <TextView
-        android:id="@+id/created_at"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/padding_margin_normal"
-        android:layout_marginTop="@dimen/padding_margin_half"
-        android:layout_marginEnd="@dimen/padding_margin_normal"
-        android:fontFamily="@font/bree_serif"
-        android:textColor="@color/black"
-        app:layout_constraintLeft_toRightOf="@id/priority"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/title"
-        tools:text="14.06.2021 16:26" />
+        <TextView
+            android:id="@+id/title"
+            style="@style/NoteTitleTextStyle"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/padding_margin_normal"
+            android:ellipsize="end"
+            android:maxLines="2"
+            android:textColor="@color/black"
+            app:layout_constraintLeft_toRightOf="@id/priority"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="Заголовок заметки" />
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+        <TextView
+            android:id="@+id/created_at"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/padding_margin_normal"
+            android:layout_marginTop="@dimen/padding_margin_half"
+            android:layout_marginEnd="@dimen/padding_margin_normal"
+            android:fontFamily="@font/bree_serif"
+            android:textColor="@color/black"
+            app:layout_constraintLeft_toRightOf="@id/priority"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/title"
+            tools:text="14.06.2021 16:26" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.cardview.widget.CardView>

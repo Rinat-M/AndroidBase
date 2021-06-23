@@ -1,4 +1,4 @@
-package com.rino.homework06.fragments;
+package com.rino.homework06.ui.fragments;
 
 import android.os.Bundle;
 

@@ -1,6 +1,6 @@
-package com.rino.homework06.utils;
+package com.rino.homework06.core.utils;
 
-import com.rino.homework06.entities.Note;
+import com.rino.homework06.core.entities.Note;
 
 import java.util.HashSet;
 import java.util.Set;

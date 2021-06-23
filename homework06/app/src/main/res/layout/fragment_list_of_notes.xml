@@ -1,14 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".fragments.ListOfNotesFragment">
+    android:background="@color/blue_50"
+    tools:context=".ui.fragments.ListOfNotesFragment">
 
-    <LinearLayout
-        android:id="@+id/list_of_notes_container"
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/list_of_notes_recyclerview"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical" />
+        android:orientation="vertical"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        tools:listitem="@layout/list_of_notes_item" />
 
-</androidx.core.widget.NestedScrollView>
+</FrameLayout>
