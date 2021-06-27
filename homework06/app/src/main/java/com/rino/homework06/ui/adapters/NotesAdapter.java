@@ -11,14 +11,18 @@ import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.rino.homework06.R;
-import com.rino.homework06.core.datasources.NotesSource;
-import com.rino.homework06.core.entities.Note;
-import com.rino.homework06.core.entities.Priority;
+import com.rino.homework06.common.datasources.NotesSource;
+import com.rino.homework06.common.entities.Note;
+import com.rino.homework06.common.entities.Priority;
+import com.rino.homework06.common.handlers.RegisterContextMenuHandler;
 
 public class NotesAdapter extends RecyclerView.Adapter<NotesAdapter.NoteViewHolder> {
     private final NotesSource dataSource;
 
     private OnItemClickListener itemClickListener;
+    private RegisterContextMenuHandler registerContextMenuHandler;
+
+    private int menuPosition;
 
     public NotesAdapter(NotesSource dataSource) {
         this.dataSource = dataSource;
@@ -52,6 +56,14 @@ public class NotesAdapter extends RecyclerView.Adapter<NotesAdapter.NoteViewHold
         void onItemClick(View view, int position);
     }
 
+    public void setRegisterContextMenuHandler(RegisterContextMenuHandler registerContextMenuHandler) {
+        this.registerContextMenuHandler = registerContextMenuHandler;
+    }
+
+    public int getMenuPosition() {
+        return menuPosition;
+    }
+
     public class NoteViewHolder extends RecyclerView.ViewHolder {
         private final TextView titleTextView;
         private final View priorityView;
@@ -71,7 +83,20 @@ public class NotesAdapter extends RecyclerView.Adapter<NotesAdapter.NoteViewHold
             priorityNormalColor = ContextCompat.getColor(itemView.getContext(), R.color.white);
 
             ConstraintLayout constraint = itemView.findViewById(R.id.note_item_container);
-            constraint.setOnClickListener(view -> itemClickListener.onItemClick(itemView, getAdapterPosition()));
+            constraint.setOnClickListener(view -> {
+                if (itemClickListener != null) {
+                    itemClickListener.onItemClick(itemView, getAdapterPosition());
+                }
+            });
+
+            if (registerContextMenuHandler != null) {
+                registerContextMenuHandler.registerContextMenu(constraint);
+            }
+
+            constraint.setOnLongClickListener(view -> {
+                menuPosition = getLayoutPosition();
+                return itemView.showContextMenu();
+            });
         }
 
         public void bind(Note note) {
