@@ -1,6 +1,6 @@
-package com.rino.homework06.listeners;
+package com.rino.homework06.core.listeners;
 
-import com.rino.homework06.entities.Note;
+import com.rino.homework06.core.entities.Note;
 
 @FunctionalInterface
 public interface OnItemSelectedListener {

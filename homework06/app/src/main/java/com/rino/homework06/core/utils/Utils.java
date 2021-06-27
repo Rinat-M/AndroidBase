@@ -1,12 +1,10 @@
-package com.rino.homework06.utils;
+package com.rino.homework06.core.utils;
 
 import android.content.Context;
 import android.widget.Toast;
 
-import com.rino.homework06.MainActivity;
-import com.rino.homework06.R;
-import com.rino.homework06.entities.Note;
-import com.rino.homework06.entities.Priority;
+import com.rino.homework06.core.entities.Note;
+import com.rino.homework06.core.entities.Priority;
 
 import java.util.ArrayList;
 import java.util.Date;

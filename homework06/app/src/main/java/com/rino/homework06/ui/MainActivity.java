@@ -1,4 +1,4 @@
-package com.rino.homework06;
+package com.rino.homework06.ui;
 
 import android.annotation.SuppressLint;
 import android.content.res.Configuration;
@@ -18,13 +18,14 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 
 import com.google.android.material.navigation.NavigationView;
-import com.rino.homework06.entities.Note;
-import com.rino.homework06.fragments.AboutFragment;
-import com.rino.homework06.fragments.FragmentEnum;
-import com.rino.homework06.fragments.ListOfNotesFragment;
-import com.rino.homework06.fragments.NoteFragment;
-import com.rino.homework06.utils.Publisher;
-import com.rino.homework06.utils.Utils;
+import com.rino.homework06.R;
+import com.rino.homework06.core.entities.Note;
+import com.rino.homework06.ui.fragments.AboutFragment;
+import com.rino.homework06.ui.fragments.FragmentEnum;
+import com.rino.homework06.ui.fragments.ListOfNotesFragment;
+import com.rino.homework06.ui.fragments.NoteFragment;
+import com.rino.homework06.core.utils.Publisher;
+import com.rino.homework06.core.utils.Utils;
 
 import java.util.HashMap;
 import java.util.Map;
