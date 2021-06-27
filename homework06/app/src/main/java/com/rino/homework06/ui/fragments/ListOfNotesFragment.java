@@ -12,7 +12,6 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.content.res.AppCompatResources;
-import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.RecyclerView;
@@ -22,15 +21,18 @@ import com.rino.homework06.common.datasources.NotesSource;
 import com.rino.homework06.common.entities.Note;
 import com.rino.homework06.common.entities.Priority;
 import com.rino.homework06.ui.adapters.NotesAdapter;
+import com.rino.homework06.ui.navigation.ScreenNavigator;
 
+import java.util.Date;
 import java.util.Objects;
 
-public class ListOfNotesFragment extends Fragment {
+public class ListOfNotesFragment extends BaseFragment {
     public static final String LIST_OF_NOTES_FRAGMENT_TAG = "LIST_OF_NOTES_FRAGMENT_TAG";
     private static final int DEFAULT_ANIMATION_DURATION = 250;
 
-    private OnItemSelectedListener onItemSelectedListener;
     private NotesSource dataSource;
+    private ScreenNavigator screenNavigator;
+
     private NotesAdapter notesAdapter;
     private RecyclerView recyclerView;
 
@@ -38,15 +40,14 @@ public class ListOfNotesFragment extends Fragment {
         return new ListOfNotesFragment();
     }
 
-    public void setOnItemSelectedListener(OnItemSelectedListener onItemSelectedListener) {
-        this.onItemSelectedListener = onItemSelectedListener;
-    }
-
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         setHasOptionsMenu(true);
+
+        dataSource = getCompositionRoot().getDataSource();
+        screenNavigator = getCompositionRoot().getScreenNavigator();
     }
 
     @Override
@@ -59,9 +60,20 @@ public class ListOfNotesFragment extends Fragment {
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        dataSource = new NotesSourceImpl();
+        navigateToFragment();
 
         initRecyclerView(view);
+    }
+
+    private void navigateToFragment() {
+        switch (screenNavigator.getCurrentFragmentEntry()) {
+            case NOTE:
+                screenNavigator.toNoteScreen();
+                break;
+            case ABOUT:
+                screenNavigator.toAboutScreen();
+                break;
+        }
     }
 
     private void initRecyclerView(View view) {
@@ -97,10 +109,9 @@ public class ListOfNotesFragment extends Fragment {
     private void setAdapter() {
         notesAdapter = new NotesAdapter(dataSource);
 
-        NotesAdapter adapter = new NotesAdapter(dataSource);
-        adapter.setOnItemClickListener((v, position) -> {
-            Note note = dataSource.getNote(position);
-            onItemSelectedListener.onItemSelected(note);
+        notesAdapter.setOnItemClickListener((v, position) -> {
+            screenNavigator.setSelectedPosition(position);
+            screenNavigator.toNoteScreen();
         });
 
         notesAdapter.setRegisterContextMenuHandler(this::registerForContextMenu);
@@ -113,8 +124,18 @@ public class ListOfNotesFragment extends Fragment {
         int menuId = item.getItemId();
 
         if (menuId == R.id.action_add) {
-            dataSource.addNote(new Note("test", "Test", new Date(), Priority.NORMAL));
-            notesAdapter.notifyItemInserted(dataSource.getSize() - 1);
+            Note newNote = new Note("Тема заметки", "Текст заметки", new Date(), Priority.NORMAL);
+            dataSource.addNote(newNote);
+
+            int newPosition = dataSource.getSize() - 1;
+
+            screenNavigator.setSelectedPosition(newPosition);
+
+            notesAdapter.notifyItemInserted(newPosition);
+            recyclerView.scrollToPosition(newPosition);
+
+            screenNavigator.toNoteScreen();
+
             return true;
         }
 
