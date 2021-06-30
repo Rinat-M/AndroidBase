@@ -8,6 +8,7 @@ import java.util.Date;
 import java.util.Locale;
 
 public class Note implements Parcelable {
+    private String id;
     private String title;
     private String text;
     private Date createdAt;
@@ -87,5 +88,13 @@ public class Note implements Parcelable {
 
     public void setPriority(Priority priority) {
         this.priority = priority;
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
     }
 }
