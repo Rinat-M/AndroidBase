@@ -1,15 +1,22 @@
 package com.rino.homework06.common.datasources;
 
 import com.rino.homework06.common.entities.Note;
+import com.rino.homework06.common.handlers.FetchDataCompletedHandler;
 import com.rino.homework06.common.utils.Utils;
 
 import java.util.List;
 
 public class NotesSourceImpl implements NotesSource {
-    private final List<Note> notes;
+    private List<Note> notes;
 
     public NotesSourceImpl() {
         notes = Utils.getListOfNotes();
+    }
+
+    @Override
+    public void fetchData(FetchDataCompletedHandler fetchDataCompletedHandler) {
+        notes = Utils.getListOfNotes();
+        fetchDataCompletedHandler.fetchDataCompleted(this);
     }
 
     @Override
