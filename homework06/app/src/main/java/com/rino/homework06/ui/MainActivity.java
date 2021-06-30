@@ -6,7 +6,6 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 
-import androidx.annotation.IdRes;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
@@ -14,51 +13,16 @@ import androidx.appcompat.widget.SearchView;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
-import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
 
 import com.google.android.material.navigation.NavigationView;
 import com.rino.homework06.R;
-import com.rino.homework06.core.entities.Note;
-import com.rino.homework06.ui.fragments.AboutFragment;
+import com.rino.homework06.common.di.CompositionRoot;
+import com.rino.homework06.common.utils.Utils;
 import com.rino.homework06.ui.fragments.FragmentEnum;
-import com.rino.homework06.ui.fragments.ListOfNotesFragment;
-import com.rino.homework06.ui.fragments.NoteFragment;
-import com.rino.homework06.core.utils.Publisher;
-import com.rino.homework06.core.utils.Utils;
-
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Objects;
+import com.rino.homework06.ui.navigation.ScreenNavigator;
 
 public class MainActivity extends AppCompatActivity {
-    private static final String SELECTED_NOTE = "SELECTED_NOTE";
-    private static final String CURRENT_FRAGMENT = "CURRENT_FRAGMENT";
-
-    private static final Map<FragmentEnum, Fragment> fragmentMap;
-
-    private static final Map<FragmentEnum, String> fragmentTagMap;
-
-    static {
-        fragmentMap = new HashMap<>();
-        fragmentMap.put(FragmentEnum.LIST_OF_NOTES, ListOfNotesFragment.newInstance());
-        fragmentMap.put(FragmentEnum.NOTE, NoteFragment.newInstance());
-        fragmentMap.put(FragmentEnum.ABOUT, AboutFragment.newInstance());
-
-        fragmentTagMap = new HashMap<>();
-        fragmentTagMap.put(FragmentEnum.LIST_OF_NOTES, ListOfNotesFragment.LIST_OF_NOTES_FRAGMENT_TAG);
-        fragmentTagMap.put(FragmentEnum.NOTE, NoteFragment.NOTE_FRAGMENT_TAG);
-        fragmentTagMap.put(FragmentEnum.ABOUT, AboutFragment.ABOUT_FRAGMENT_TAG);
-    }
-
-
-    private FragmentEnum currentFragmentEntry = FragmentEnum.LIST_OF_NOTES;
-
-    private Note selectedNote;
-
-    private final Publisher publisher = new Publisher();
-
-    private boolean isLandscape;
+    private ScreenNavigator screenNavigator;
 
     private DrawerLayout drawerLayout;
 
@@ -69,12 +33,15 @@ public class MainActivity extends AppCompatActivity {
 
         initView();
 
+        CompositionRoot compositionRoot = ((CustomApplication) getApplication()).getCompositionRoot();
+
+        screenNavigator = compositionRoot.getScreenNavigator();
+        screenNavigator.setFragmentManager(this.getSupportFragmentManager());
+
         Configuration configuration = getResources().getConfiguration();
-        isLandscape = configuration.orientation == Configuration.ORIENTATION_LANDSCAPE;
+        screenNavigator.setLandscape(configuration.orientation == Configuration.ORIENTATION_LANDSCAPE);
 
-        configureFragmentMap();
-
-        configureFragments(currentFragmentEntry);
+        screenNavigator.toListOfNotesScreen(true);
     }
 
     private void initView() {
@@ -111,7 +78,7 @@ public class MainActivity extends AppCompatActivity {
                 item -> {
                     int itemId = item.getItemId();
 
-                    if (navigateFragment(itemId)) {
+                    if (processMenuSelection(itemId)) {
                         drawerLayout.closeDrawer(GravityCompat.START);
                         return true;
                     }
@@ -119,114 +86,6 @@ public class MainActivity extends AppCompatActivity {
                     return false;
                 }
         );
-    }
-
-    private void configureFragmentMap() {
-        ListOfNotesFragment listOfNotesFragment = (ListOfNotesFragment) fragmentMap.get(FragmentEnum.LIST_OF_NOTES);
-        if (listOfNotesFragment != null) {
-            listOfNotesFragment.setOnItemSelectedListener(note -> {
-                selectedNote = note;
-                notifyAndConfigureFragments(FragmentEnum.NOTE);
-            });
-        }
-
-        NoteFragment noteFragment = (NoteFragment) fragmentMap.get(FragmentEnum.NOTE);
-        publisher.subscribe(noteFragment);
-    }
-
-    private void notifyAndConfigureFragments(FragmentEnum fragmentType) {
-        publisher.notify(selectedNote);
-        configureFragments(fragmentType);
-    }
-
-    private void configureFragments(FragmentEnum fragmentType) {
-        switch (fragmentType) {
-            case NOTE:
-            case LIST_OF_NOTES:
-                if (isLandscape && selectedNote != null) {
-                    replaceFragment(FragmentEnum.NOTE, R.id.note_container);
-                } else if (selectedNote != null) {
-                    replaceFragment(FragmentEnum.NOTE);
-                } else {
-                    removeFragment(FragmentEnum.NOTE);
-                    replaceFragment(FragmentEnum.LIST_OF_NOTES);
-                }
-                break;
-            case ABOUT:
-                removeFragment(FragmentEnum.NOTE);
-
-                if (isLandscape) {
-                    replaceFragment(FragmentEnum.ABOUT, R.id.note_container);
-                } else {
-                    replaceFragment(FragmentEnum.ABOUT);
-                }
-
-                break;
-        }
-    }
-
-    @Override
-    protected void onRestoreInstanceState(@NonNull Bundle savedInstanceState) {
-        super.onRestoreInstanceState(savedInstanceState);
-
-        selectedNote = savedInstanceState.getParcelable(SELECTED_NOTE);
-
-        String currentFragment = savedInstanceState.getString(CURRENT_FRAGMENT);
-        currentFragmentEntry = FragmentEnum.valueOf(currentFragment);
-
-        notifyAndConfigureFragments(currentFragmentEntry);
-    }
-
-    @Override
-    protected void onSaveInstanceState(@NonNull Bundle outState) {
-        super.onSaveInstanceState(outState);
-        outState.putParcelable(SELECTED_NOTE, selectedNote);
-        outState.putString(CURRENT_FRAGMENT, currentFragmentEntry.name());
-    }
-
-    private void replaceFragment(FragmentEnum fragmentType) {
-        int containerId = R.id.list_of_notes;
-
-        replaceFragment(fragmentType, containerId);
-    }
-
-    private void replaceFragment(FragmentEnum fragmentType, @IdRes int containerId) {
-        currentFragmentEntry = fragmentType;
-
-        FragmentManager fragmentManager = getSupportFragmentManager();
-
-        Fragment fragment = Objects.requireNonNull(fragmentMap.get(fragmentType));
-        String fragmentTag = fragmentTagMap.get(fragmentType);
-
-        fragmentManager
-                .beginTransaction()
-                .replace(containerId, fragment, fragmentTag)
-                .commit();
-    }
-
-    private void removeFragment(FragmentEnum fragmentType) {
-        String fragmentTag = fragmentTagMap.get(fragmentType);
-
-        FragmentManager fragmentManager = getSupportFragmentManager();
-        Fragment fragment = fragmentManager.findFragmentByTag(fragmentTag);
-
-        if (fragment != null) {
-            fragmentManager
-                    .beginTransaction()
-                    .remove(fragment)
-                    .commit();
-        }
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-        int itemId = item.getItemId();
-
-        if (navigateFragment(itemId)) {
-            return true;
-        }
-
-        return super.onOptionsItemSelected(item);
     }
 
     @Override
@@ -252,22 +111,32 @@ public class MainActivity extends AppCompatActivity {
         return true;
     }
 
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        int itemId = item.getItemId();
+
+        if (processMenuSelection(itemId)) {
+            return true;
+        }
+
+        return super.onOptionsItemSelected(item);
+    }
+
     @SuppressLint("NonConstantResourceId")
-    private boolean navigateFragment(int itemId) {
+    private boolean processMenuSelection(int itemId) {
         switch (itemId) {
-            case R.id.action_add:
             case R.id.action_sort:
             case R.id.action_settings:
                 Utils.showToastShort(MainActivity.this, getString(R.string.not_implemented));
                 return true;
 
             case R.id.action_notes:
-                selectedNote = null;
-                notifyAndConfigureFragments(FragmentEnum.LIST_OF_NOTES);
+                screenNavigator.toListOfNotesScreen();
+                screenNavigator.resetSelectedPosition();
                 return true;
 
             case R.id.action_about:
-                configureFragments(FragmentEnum.ABOUT);
+                screenNavigator.toAboutScreen();
                 return true;
         }
 
@@ -278,9 +147,9 @@ public class MainActivity extends AppCompatActivity {
     public void onBackPressed() {
         if (drawerLayout.isDrawerOpen(GravityCompat.START)) {
             drawerLayout.closeDrawer(GravityCompat.START);
-        } else if (!isLandscape && currentFragmentEntry == FragmentEnum.NOTE) {
-            selectedNote = null;
-            notifyAndConfigureFragments(FragmentEnum.LIST_OF_NOTES);
+        } else if (!screenNavigator.isLandscape() && screenNavigator.getCurrentFragmentEntry() == FragmentEnum.NOTE) {
+            screenNavigator.toListOfNotesScreen();
+            screenNavigator.resetSelectedPosition();
         } else {
             super.onBackPressed();
         }

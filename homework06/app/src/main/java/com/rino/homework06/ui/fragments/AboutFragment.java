@@ -1,11 +1,6 @@
 package com.rino.homework06.ui.fragments;
 
 import android.os.Bundle;
-
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.fragment.app.Fragment;
-
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -14,10 +9,13 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+
 import com.rino.homework06.BuildConfig;
 import com.rino.homework06.R;
 
-public class AboutFragment extends Fragment {
+public class AboutFragment extends BaseFragment {
     public static final String ABOUT_FRAGMENT_TAG = "ABOUT_FRAGMENT_TAG";
 
     public static AboutFragment newInstance() {
