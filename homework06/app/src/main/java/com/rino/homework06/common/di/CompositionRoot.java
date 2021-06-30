@@ -1,5 +1,6 @@
 package com.rino.homework06.common.di;
 
+import com.rino.homework06.common.datasources.NotesFirebaseImpl;
 import com.rino.homework06.common.datasources.NotesSource;
 import com.rino.homework06.common.datasources.NotesSourceImpl;
 import com.rino.homework06.ui.navigation.ScreenNavigator;
@@ -11,7 +12,7 @@ public class CompositionRoot {
 
     public NotesSource getDataSource() {
         if (dataSource == null) {
-            dataSource = new NotesSourceImpl();
+            dataSource = new NotesFirebaseImpl();
         }
 
         return dataSource;

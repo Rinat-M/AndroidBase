@@ -163,6 +163,7 @@ public class NoteFragment extends BaseFragment {
         Priority priority = priorityCheckBox.isChecked() ? Priority.HIGH : Priority.NORMAL;
 
         Note updatedNote = new Note(title, text, datePickerDate, priority);
+        updatedNote.setId(currentNote.getId());
 
         dataSource.updateNote(currentPosition, updatedNote);
     }

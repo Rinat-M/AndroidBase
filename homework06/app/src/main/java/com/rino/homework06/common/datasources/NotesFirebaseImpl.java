@@ -80,6 +80,8 @@ public class NotesFirebaseImpl implements NotesSource {
         collection
                 .add(NoteMapping.toDocument(note))
                 .addOnSuccessListener(documentReference -> note.setId(documentReference.getId()));
+
+        notes.add(note);
     }
 
     @Override

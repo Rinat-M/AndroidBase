@@ -63,6 +63,8 @@ public class ListOfNotesFragment extends BaseFragment {
         navigateToFragment();
 
         initRecyclerView(view);
+
+        dataSource.fetchData(notesSource -> notesAdapter.notifyDataSetChanged());
     }
 
     private void navigateToFragment() {
@@ -107,7 +109,9 @@ public class ListOfNotesFragment extends BaseFragment {
     }
 
     private void setAdapter() {
-        notesAdapter = new NotesAdapter(dataSource);
+        notesAdapter = new NotesAdapter();
+
+        notesAdapter.setDataSource(dataSource);
 
         notesAdapter.setOnItemClickListener((v, position) -> {
             screenNavigator.setSelectedPosition(position);
