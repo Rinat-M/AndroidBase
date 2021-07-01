@@ -19,4 +19,6 @@
     <string name="application_description">Данное приложение было разработано в рамках прохождения курса по Android от компании GeekBrains.</string>
     <string name="version">Версия</string>
     <string name="continue_without_auth">Продолжить без авторизации</string>
+    <string name="sign_out">Выйти из аккаунта</string>
+    <string name="user_email">e-mail</string>
 </resources>
