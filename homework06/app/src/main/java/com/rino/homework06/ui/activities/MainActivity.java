@@ -1,6 +1,8 @@
-package com.rino.homework06.ui;
+package com.rino.homework06.ui.activities;
 
 import android.annotation.SuppressLint;
+import android.content.Context;
+import android.content.Intent;
 import android.content.res.Configuration;
 import android.os.Bundle;
 import android.view.Menu;
@@ -18,6 +20,7 @@ import com.google.android.material.navigation.NavigationView;
 import com.rino.homework06.R;
 import com.rino.homework06.common.di.CompositionRoot;
 import com.rino.homework06.common.utils.Utils;
+import com.rino.homework06.ui.CustomApplication;
 import com.rino.homework06.ui.fragments.FragmentEnum;
 import com.rino.homework06.ui.navigation.ScreenNavigator;
 
@@ -25,6 +28,15 @@ public class MainActivity extends AppCompatActivity {
     private ScreenNavigator screenNavigator;
 
     private DrawerLayout drawerLayout;
+
+    public static Intent newInstance(Context packageContext) {
+        return new Intent(packageContext, MainActivity.class);
+    }
+
+    public static void startActivity(Context packageContext) {
+        Intent intent = newInstance(packageContext);
+        packageContext.startActivity(intent);
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
