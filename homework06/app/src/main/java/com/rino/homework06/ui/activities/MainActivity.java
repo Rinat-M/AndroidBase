@@ -1,10 +1,14 @@
-package com.rino.homework06.ui;
+package com.rino.homework06.ui.activities;
 
 import android.annotation.SuppressLint;
+import android.content.Context;
+import android.content.Intent;
 import android.content.res.Configuration;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBarDrawerToggle;
@@ -18,18 +22,46 @@ import com.google.android.material.navigation.NavigationView;
 import com.rino.homework06.R;
 import com.rino.homework06.common.di.CompositionRoot;
 import com.rino.homework06.common.utils.Utils;
+import com.rino.homework06.ui.CustomApplication;
 import com.rino.homework06.ui.fragments.FragmentEnum;
 import com.rino.homework06.ui.navigation.ScreenNavigator;
 
 public class MainActivity extends AppCompatActivity {
+    private static final String ACCOUNT_NAME = "ACCOUNT_NAME";
+    private static final String ACCOUNT_EMAIL = "ACCOUNT_EMAIL";
+
     private ScreenNavigator screenNavigator;
 
     private DrawerLayout drawerLayout;
+
+    private String accountName;
+    private String accountEmail;
+
+    public static Intent newInstance(Context packageContext, String accountName, String accountEmail) {
+        Intent intent = new Intent(packageContext, MainActivity.class);
+
+        intent.putExtra(ACCOUNT_NAME, accountName);
+        intent.putExtra(ACCOUNT_EMAIL, accountEmail);
+
+        return intent;
+    }
+
+    public static void startActivity(Context packageContext, String accountName, String accountEmail) {
+        Intent intent = newInstance(packageContext, accountName, accountEmail);
+        packageContext.startActivity(intent);
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        Bundle extras = getIntent().getExtras();
+
+        if (extras != null) {
+            accountName = extras.getString(ACCOUNT_NAME);
+            accountEmail = extras.getString(ACCOUNT_EMAIL);
+        }
 
         initView();
 
@@ -86,6 +118,22 @@ public class MainActivity extends AppCompatActivity {
                     return false;
                 }
         );
+
+        configureNavigationHeaderView(navigationView);
+    }
+
+    private void configureNavigationHeaderView(NavigationView navigationView) {
+        View navHeaderView = navigationView.getHeaderView(0);
+
+        TextView navHeaderUsername = navHeaderView.findViewById(R.id.nav_header_username);
+        if (accountName != null) {
+            navHeaderUsername.setText(accountName);
+        }
+
+        TextView navHeaderEmail = navHeaderView.findViewById(R.id.nav_header_email);
+        if (accountEmail != null) {
+            navHeaderEmail.setText(accountEmail);
+        }
     }
 
     @Override

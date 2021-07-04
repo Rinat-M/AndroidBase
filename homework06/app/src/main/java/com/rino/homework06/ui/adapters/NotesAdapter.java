@@ -17,16 +17,12 @@ import com.rino.homework06.common.entities.Priority;
 import com.rino.homework06.common.handlers.RegisterContextMenuHandler;
 
 public class NotesAdapter extends RecyclerView.Adapter<NotesAdapter.NoteViewHolder> {
-    private final NotesSource dataSource;
+    private NotesSource dataSource;
 
     private OnItemClickListener itemClickListener;
     private RegisterContextMenuHandler registerContextMenuHandler;
 
     private int menuPosition;
-
-    public NotesAdapter(NotesSource dataSource) {
-        this.dataSource = dataSource;
-    }
 
     @NonNull
     @Override
@@ -49,6 +45,11 @@ public class NotesAdapter extends RecyclerView.Adapter<NotesAdapter.NoteViewHold
 
     public void setOnItemClickListener(OnItemClickListener itemClickListener) {
         this.itemClickListener = itemClickListener;
+    }
+
+    public void setDataSource(NotesSource dataSource) {
+        this.dataSource = dataSource;
+        notifyDataSetChanged();
     }
 
     @FunctionalInterface

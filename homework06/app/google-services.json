@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "88909782739",
+    "project_id": "homework06-notes",
+    "storage_bucket": "homework06-notes.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:88909782739:android:124e0095ce3b691cd8be26",
+        "android_client_info": {
+          "package_name": "com.rino.homework06"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "88909782739-dppj5gug4jmt87mi02c4q18v9j0hvlo1.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCWJ6YtDD8pqvN8r4xmdpP8RoNerZYo2x4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "88909782739-dppj5gug4jmt87mi02c4q18v9j0hvlo1.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
