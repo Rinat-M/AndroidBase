@@ -17,10 +17,12 @@ import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.rino.homework06.R;
+import com.rino.homework06.common.StateStore;
 import com.rino.homework06.common.datasources.NotesSource;
 import com.rino.homework06.common.entities.Note;
 import com.rino.homework06.common.entities.Priority;
 import com.rino.homework06.ui.adapters.NotesAdapter;
+import com.rino.homework06.ui.controllers.BaseFragment;
 import com.rino.homework06.ui.navigation.ScreenNavigator;
 
 import java.util.Date;
@@ -32,6 +34,7 @@ public class ListOfNotesFragment extends BaseFragment {
 
     private NotesSource dataSource;
     private ScreenNavigator screenNavigator;
+    private StateStore stateStore;
 
     private NotesAdapter notesAdapter;
     private RecyclerView recyclerView;
@@ -48,6 +51,7 @@ public class ListOfNotesFragment extends BaseFragment {
 
         dataSource = getCompositionRoot().getDataSource();
         screenNavigator = getCompositionRoot().getScreenNavigator();
+        stateStore = getCompositionRoot().getStateStore();
     }
 
     @Override
@@ -70,7 +74,7 @@ public class ListOfNotesFragment extends BaseFragment {
     private void navigateToFragment() {
         switch (screenNavigator.getCurrentFragmentEntry()) {
             case NOTE:
-                screenNavigator.toNoteScreen();
+                screenNavigator.toNoteScreen(stateStore.getSelectedPosition());
                 break;
             case ABOUT:
                 screenNavigator.toAboutScreen();
@@ -114,8 +118,8 @@ public class ListOfNotesFragment extends BaseFragment {
         notesAdapter.setDataSource(dataSource);
 
         notesAdapter.setOnItemClickListener((v, position) -> {
-            screenNavigator.setSelectedPosition(position);
-            screenNavigator.toNoteScreen();
+            stateStore.setSelectedPosition(position);
+            screenNavigator.toNoteScreen(position);
         });
 
         notesAdapter.setRegisterContextMenuHandler(this::registerForContextMenu);
@@ -133,12 +137,12 @@ public class ListOfNotesFragment extends BaseFragment {
 
             int newPosition = dataSource.getSize() - 1;
 
-            screenNavigator.setSelectedPosition(newPosition);
+            stateStore.setSelectedPosition(newPosition);
 
             notesAdapter.notifyItemInserted(newPosition);
             recyclerView.scrollToPosition(newPosition);
 
-            screenNavigator.toNoteScreen();
+            screenNavigator.toNoteScreen(newPosition);
 
             return true;
         }

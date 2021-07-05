@@ -1,14 +1,13 @@
 package com.rino.homework06.common.di;
 
+import com.rino.homework06.common.StateStore;
 import com.rino.homework06.common.datasources.NotesFirebaseImpl;
 import com.rino.homework06.common.datasources.NotesSource;
-import com.rino.homework06.common.datasources.NotesSourceImpl;
-import com.rino.homework06.ui.navigation.ScreenNavigator;
 
 public class CompositionRoot {
 
     private NotesSource dataSource;
-    private ScreenNavigator screenNavigator;
+    private StateStore stateStore;
 
     public NotesSource getDataSource() {
         if (dataSource == null) {
@@ -18,11 +17,10 @@ public class CompositionRoot {
         return dataSource;
     }
 
-    public ScreenNavigator getScreenNavigator() {
-        if (screenNavigator == null) {
-            screenNavigator = new ScreenNavigator();
+    public StateStore getStateStore() {
+        if (stateStore == null) {
+            stateStore = new StateStore();
         }
-
-        return screenNavigator;
+        return stateStore;
     }
 }

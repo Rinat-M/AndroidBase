@@ -19,6 +19,7 @@ import com.rino.homework06.R;
 import com.rino.homework06.common.datasources.NotesSource;
 import com.rino.homework06.common.entities.Note;
 import com.rino.homework06.common.entities.Priority;
+import com.rino.homework06.ui.controllers.BaseFragment;
 import com.rino.homework06.ui.navigation.ScreenNavigator;
 
 import java.text.SimpleDateFormat;
@@ -100,7 +101,7 @@ public class NoteFragment extends BaseFragment {
         MenuItem actionSearch = menu.findItem(R.id.action_search);
         actionSearch.setVisible(false);
 
-        if (!screenNavigator.isLandscape()) {
+        if (screenNavigator.isPortrait()) {
             MenuItem actionAdd = menu.findItem(R.id.action_add);
             actionAdd.setVisible(false);
         }
