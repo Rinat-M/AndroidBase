@@ -23,18 +23,23 @@ import com.rino.homework06.common.entities.Note;
 import com.rino.homework06.common.entities.Priority;
 import com.rino.homework06.ui.adapters.NotesAdapter;
 import com.rino.homework06.ui.controllers.BaseFragment;
+import com.rino.homework06.ui.dialogs.DialogsEventBus;
+import com.rino.homework06.ui.dialogs.DialogsManager;
+import com.rino.homework06.ui.dialogs.actiondialog.ActionDialogEvent;
 import com.rino.homework06.ui.navigation.ScreenNavigator;
 
 import java.util.Date;
 import java.util.Objects;
 
-public class ListOfNotesFragment extends BaseFragment {
+public class ListOfNotesFragment extends BaseFragment implements DialogsEventBus.Listener {
     public static final String LIST_OF_NOTES_FRAGMENT_TAG = "LIST_OF_NOTES_FRAGMENT_TAG";
     private static final int DEFAULT_ANIMATION_DURATION = 250;
 
     private NotesSource dataSource;
     private ScreenNavigator screenNavigator;
     private StateStore stateStore;
+    private DialogsManager dialogsManager;
+    private DialogsEventBus dialogsEventBus;
 
     private NotesAdapter notesAdapter;
     private RecyclerView recyclerView;
@@ -52,6 +57,14 @@ public class ListOfNotesFragment extends BaseFragment {
         dataSource = getCompositionRoot().getDataSource();
         screenNavigator = getCompositionRoot().getScreenNavigator();
         stateStore = getCompositionRoot().getStateStore();
+        dialogsManager = getCompositionRoot().getDialogsManager();
+        dialogsEventBus = getCompositionRoot().getDialogsEventBus();
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        dialogsEventBus.registerListener(this);
     }
 
     @Override
@@ -162,11 +175,35 @@ public class ListOfNotesFragment extends BaseFragment {
         int position = notesAdapter.getMenuPosition();
 
         if (item.getItemId() == R.id.action_delete) {
-            dataSource.deleteNote(position);
-            notesAdapter.notifyItemRemoved(position);
+            stateStore.setPositionToDelete(position);
+            dialogsManager.showDeleteActionDialog(null);
             return true;
         }
 
         return super.onContextItemSelected(item);
+    }
+
+    @Override
+    public void onDialogEvent(Object event) {
+        if (event instanceof ActionDialogEvent) {
+            switch (((ActionDialogEvent) event).getClickedButton()) {
+                case POSITIVE:
+                    int position = stateStore.getPositionToDelete();
+                    if (position > 0) {
+                        dataSource.deleteNote(position);
+                        notesAdapter.notifyItemRemoved(position);
+                    }
+                    break;
+                case NEGATIVE:
+                    stateStore.resetPositionToDelete();
+                    break;
+            }
+        }
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        dialogsEventBus.unregisterListener(this);
     }
 }
