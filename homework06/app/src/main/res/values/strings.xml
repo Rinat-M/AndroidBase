@@ -25,4 +25,6 @@
     <string name="negative_button_caption">НЕТ</string>
     <string name="delete_note_title">Удаление заметки</string>
     <string name="delete_note_message">Вы действительно хотите удалить заметку?</string>
+    <string name="note">Заметка</string>
+    <string name="save_button_caption">СОХРАНИТЬ</string>
 </resources>
