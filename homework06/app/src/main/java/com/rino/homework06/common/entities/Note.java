@@ -53,6 +53,12 @@ public class Note implements Parcelable {
         }
     };
 
+    public Note getCopy() {
+        Note copyNote = new Note(this.title, this.text, this.createdAt, this.priority);
+        copyNote.setId(this.id);
+        return copyNote;
+    }
+
     public String getTitle() {
         return title;
     }

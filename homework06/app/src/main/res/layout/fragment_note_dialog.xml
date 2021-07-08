@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="350dp">
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline_vertical_center"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.5" />
+
+    <EditText
+        android:id="@+id/note_title_edit_text"
+        style="@style/NoteTitleTextStyle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:autofillHints=""
+        android:background="@android:color/transparent"
+        android:hint="@string/note_title_hint"
+        android:inputType="text"
+        android:padding="@dimen/padding_margin_normal"
+        android:saveEnabled="false"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/note_created_at_text_view"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:gravity="center"
+        app:layout_constraintBottom_toBottomOf="@+id/note_priority_check_box"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="@id/guideline_vertical_center"
+        app:layout_constraintTop_toBottomOf="@id/note_title_edit_text"
+        tools:text="14.06.2021 16:26" />
+
+    <CheckBox
+        android:id="@+id/note_priority_check_box"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:layoutDirection="rtl"
+        android:saveEnabled="false"
+        android:text="@string/high_priority"
+        app:layout_constraintLeft_toRightOf="@id/guideline_vertical_center"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/note_title_edit_text" />
+
+    <View
+        style="@style/DividerStyle"
+        android:layout_width="match_parent"
+        android:layout_marginStart="@dimen/padding_margin_half"
+        android:layout_marginEnd="@dimen/padding_margin_half"
+        app:layout_constraintBottom_toTopOf="@id/note_text_edit_text"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/note_priority_check_box" />
+
+    <EditText
+        android:id="@+id/note_text_edit_text"
+        android:layout_width="0dp"
+        android:layout_height="150dp"
+        android:autofillHints=""
+        android:background="@android:color/transparent"
+        android:gravity="start"
+        android:hint="@string/note_description"
+        android:inputType="textMultiLine"
+        android:padding="@dimen/padding_margin_half"
+        android:saveEnabled="false"
+        app:layout_constraintBottom_toBottomOf="@id/buttons_layout"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/note_priority_check_box" />
+
+    <LinearLayout
+        android:id="@+id/buttons_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/note_text_edit_text">
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/positive_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="@string/positive_button_caption" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/negative_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="@string/negative_button_caption" />
+
+    </LinearLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -19,6 +19,10 @@ import com.rino.homework06.R;
 import com.rino.homework06.common.datasources.NotesSource;
 import com.rino.homework06.common.entities.Note;
 import com.rino.homework06.common.entities.Priority;
+import com.rino.homework06.ui.controllers.BaseFragment;
+import com.rino.homework06.ui.dialogs.DialogsEventBus;
+import com.rino.homework06.ui.dialogs.DialogsManager;
+import com.rino.homework06.ui.dialogs.actiondialog.ActionDialogEvent;
 import com.rino.homework06.ui.navigation.ScreenNavigator;
 
 import java.text.SimpleDateFormat;
@@ -26,7 +30,7 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
 
-public class NoteFragment extends BaseFragment {
+public class NoteFragment extends BaseFragment implements DialogsEventBus.Listener {
 
     public static final String NOTE_FRAGMENT_TAG = "NOTE_FRAGMENT_TAG";
     public static final String POSITION = "POSITION";
@@ -37,6 +41,8 @@ public class NoteFragment extends BaseFragment {
 
     private NotesSource dataSource;
     private ScreenNavigator screenNavigator;
+    private DialogsManager dialogsManager;
+    private DialogsEventBus dialogsEventBus;
 
     private EditText titleEditText;
     private TextView createdAtTextView;
@@ -67,10 +73,19 @@ public class NoteFragment extends BaseFragment {
             currentPosition = getArguments().getInt(POSITION);
         }
 
+        dialogsManager = getCompositionRoot().getDialogsManager();
+        dialogsEventBus = getCompositionRoot().getDialogsEventBus();
+
         screenNavigator = getCompositionRoot().getScreenNavigator();
         dataSource = getCompositionRoot().getDataSource();
 
         currentNote = dataSource.getNote(currentPosition);
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        dialogsEventBus.registerListener(this);
     }
 
     @Override
@@ -100,7 +115,7 @@ public class NoteFragment extends BaseFragment {
         MenuItem actionSearch = menu.findItem(R.id.action_search);
         actionSearch.setVisible(false);
 
-        if (!screenNavigator.isLandscape()) {
+        if (screenNavigator.isPortrait()) {
             MenuItem actionAdd = menu.findItem(R.id.action_add);
             actionAdd.setVisible(false);
         }
@@ -152,6 +167,8 @@ public class NoteFragment extends BaseFragment {
     public void onStop() {
         super.onStop();
 
+        dialogsEventBus.unregisterListener(this);
+
         if (!isDeleted) {
             saveData();
         }
@@ -173,14 +190,26 @@ public class NoteFragment extends BaseFragment {
         int itemId = item.getItemId();
 
         if (itemId == R.id.action_delete) {
-            dataSource.deleteNote(currentPosition);
-            isDeleted = true;
-
-            screenNavigator.toListOfNotesScreen();
-
+            dialogsManager.showDeleteActionDialog(null);
             return true;
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public void onDialogEvent(Object event) {
+        if (event instanceof ActionDialogEvent) {
+            switch (((ActionDialogEvent) event).getClickedButton()) {
+                case POSITIVE:
+                    dataSource.deleteNote(currentPosition);
+                    isDeleted = true;
+                    screenNavigator.toListOfNotesScreen();
+
+                    break;
+                case NEGATIVE:
+                    break;
+            }
+        }
     }
 }

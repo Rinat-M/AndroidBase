@@ -17,21 +17,27 @@ import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.rino.homework06.R;
+import com.rino.homework06.common.StateStore;
 import com.rino.homework06.common.datasources.NotesSource;
-import com.rino.homework06.common.entities.Note;
-import com.rino.homework06.common.entities.Priority;
 import com.rino.homework06.ui.adapters.NotesAdapter;
+import com.rino.homework06.ui.controllers.BaseFragment;
+import com.rino.homework06.ui.dialogs.DialogsEventBus;
+import com.rino.homework06.ui.dialogs.DialogsManager;
+import com.rino.homework06.ui.dialogs.actiondialog.ActionDialogEvent;
+import com.rino.homework06.ui.dialogs.notedialog.NoteDialogEvent;
 import com.rino.homework06.ui.navigation.ScreenNavigator;
 
-import java.util.Date;
 import java.util.Objects;
 
-public class ListOfNotesFragment extends BaseFragment {
+public class ListOfNotesFragment extends BaseFragment implements DialogsEventBus.Listener {
     public static final String LIST_OF_NOTES_FRAGMENT_TAG = "LIST_OF_NOTES_FRAGMENT_TAG";
     private static final int DEFAULT_ANIMATION_DURATION = 250;
 
     private NotesSource dataSource;
     private ScreenNavigator screenNavigator;
+    private StateStore stateStore;
+    private DialogsManager dialogsManager;
+    private DialogsEventBus dialogsEventBus;
 
     private NotesAdapter notesAdapter;
     private RecyclerView recyclerView;
@@ -48,6 +54,15 @@ public class ListOfNotesFragment extends BaseFragment {
 
         dataSource = getCompositionRoot().getDataSource();
         screenNavigator = getCompositionRoot().getScreenNavigator();
+        stateStore = getCompositionRoot().getStateStore();
+        dialogsManager = getCompositionRoot().getDialogsManager();
+        dialogsEventBus = getCompositionRoot().getDialogsEventBus();
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        dialogsEventBus.registerListener(this);
     }
 
     @Override
@@ -70,7 +85,7 @@ public class ListOfNotesFragment extends BaseFragment {
     private void navigateToFragment() {
         switch (screenNavigator.getCurrentFragmentEntry()) {
             case NOTE:
-                screenNavigator.toNoteScreen();
+                dialogsManager.showAddOrEditNoteDialog(null, stateStore.getSelectedPosition());
                 break;
             case ABOUT:
                 screenNavigator.toAboutScreen();
@@ -112,12 +127,7 @@ public class ListOfNotesFragment extends BaseFragment {
         notesAdapter = new NotesAdapter();
 
         notesAdapter.setDataSource(dataSource);
-
-        notesAdapter.setOnItemClickListener((v, position) -> {
-            screenNavigator.setSelectedPosition(position);
-            screenNavigator.toNoteScreen();
-        });
-
+        notesAdapter.setOnItemClickListener((v, position) -> dialogsManager.showAddOrEditNoteDialog(null, position));
         notesAdapter.setRegisterContextMenuHandler(this::registerForContextMenu);
 
         recyclerView.setAdapter(notesAdapter);
@@ -128,18 +138,7 @@ public class ListOfNotesFragment extends BaseFragment {
         int menuId = item.getItemId();
 
         if (menuId == R.id.action_add) {
-            Note newNote = new Note("Тема заметки", "Текст заметки", new Date(), Priority.NORMAL);
-            dataSource.addNote(newNote);
-
-            int newPosition = dataSource.getSize() - 1;
-
-            screenNavigator.setSelectedPosition(newPosition);
-
-            notesAdapter.notifyItemInserted(newPosition);
-            recyclerView.scrollToPosition(newPosition);
-
-            screenNavigator.toNoteScreen();
-
+            dialogsManager.showAddOrEditNoteDialog(null, null);
             return true;
         }
 
@@ -158,11 +157,41 @@ public class ListOfNotesFragment extends BaseFragment {
         int position = notesAdapter.getMenuPosition();
 
         if (item.getItemId() == R.id.action_delete) {
-            dataSource.deleteNote(position);
-            notesAdapter.notifyItemRemoved(position);
+            stateStore.setPositionToDelete(position);
+            dialogsManager.showDeleteActionDialog(null);
             return true;
         }
 
         return super.onContextItemSelected(item);
+    }
+
+    @Override
+    public void onDialogEvent(Object event) {
+        if (event instanceof ActionDialogEvent) {
+            switch (((ActionDialogEvent) event).getClickedButton()) {
+                case POSITIVE:
+                    int position = stateStore.getPositionToDelete();
+                    dataSource.deleteNote(position);
+                    notesAdapter.notifyItemRemoved(position);
+                    break;
+                case NEGATIVE:
+                    stateStore.resetPositionToDelete();
+                    break;
+            }
+        } else if (event instanceof NoteDialogEvent) {
+            switch (((NoteDialogEvent) event).getClickedButton()) {
+                case POSITIVE:
+                    dataSource.fetchData(notesSource -> notesAdapter.notifyDataSetChanged());
+                    break;
+                case NEGATIVE:
+                    break;
+            }
+        }
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        dialogsEventBus.unregisterListener(this);
     }
 }

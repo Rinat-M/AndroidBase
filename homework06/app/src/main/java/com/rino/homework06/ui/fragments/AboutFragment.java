@@ -14,6 +14,7 @@ import androidx.annotation.Nullable;
 
 import com.rino.homework06.BuildConfig;
 import com.rino.homework06.R;
+import com.rino.homework06.ui.controllers.BaseFragment;
 
 public class AboutFragment extends BaseFragment {
     public static final String ABOUT_FRAGMENT_TAG = "ABOUT_FRAGMENT_TAG";

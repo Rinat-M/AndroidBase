@@ -3,7 +3,6 @@ package com.rino.homework06.ui.activities;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
-import android.content.res.Configuration;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -12,7 +11,6 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBarDrawerToggle;
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.SearchView;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.GravityCompat;
@@ -20,17 +18,18 @@ import androidx.drawerlayout.widget.DrawerLayout;
 
 import com.google.android.material.navigation.NavigationView;
 import com.rino.homework06.R;
-import com.rino.homework06.common.di.CompositionRoot;
+import com.rino.homework06.common.StateStore;
 import com.rino.homework06.common.utils.Utils;
-import com.rino.homework06.ui.CustomApplication;
+import com.rino.homework06.ui.controllers.BaseActivity;
 import com.rino.homework06.ui.fragments.FragmentEnum;
 import com.rino.homework06.ui.navigation.ScreenNavigator;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends BaseActivity {
     private static final String ACCOUNT_NAME = "ACCOUNT_NAME";
     private static final String ACCOUNT_EMAIL = "ACCOUNT_EMAIL";
 
     private ScreenNavigator screenNavigator;
+    private StateStore stateStore;
 
     private DrawerLayout drawerLayout;
 
@@ -65,14 +64,10 @@ public class MainActivity extends AppCompatActivity {
 
         initView();
 
-        CompositionRoot compositionRoot = ((CustomApplication) getApplication()).getCompositionRoot();
+        stateStore = getCompositionRoot().getStateStore();
 
-        screenNavigator = compositionRoot.getScreenNavigator();
-        screenNavigator.setFragmentManager(this.getSupportFragmentManager());
-
-        Configuration configuration = getResources().getConfiguration();
-        screenNavigator.setLandscape(configuration.orientation == Configuration.ORIENTATION_LANDSCAPE);
-
+        screenNavigator = getCompositionRoot().getScreenNavigator();
+        screenNavigator.restoreLastFragmentEntry(stateStore.getLastFragmentEntry());
         screenNavigator.toListOfNotesScreen(true);
     }
 
@@ -180,7 +175,7 @@ public class MainActivity extends AppCompatActivity {
 
             case R.id.action_notes:
                 screenNavigator.toListOfNotesScreen();
-                screenNavigator.resetSelectedPosition();
+                stateStore.resetSelectedPosition();
                 return true;
 
             case R.id.action_about:
@@ -192,12 +187,18 @@ public class MainActivity extends AppCompatActivity {
     }
 
     @Override
+    protected void onStop() {
+        stateStore.setLastFragmentEntry(screenNavigator.getCurrentFragmentEntry());
+        super.onStop();
+    }
+
+    @Override
     public void onBackPressed() {
         if (drawerLayout.isDrawerOpen(GravityCompat.START)) {
             drawerLayout.closeDrawer(GravityCompat.START);
-        } else if (!screenNavigator.isLandscape() && screenNavigator.getCurrentFragmentEntry() == FragmentEnum.NOTE) {
+        } else if (screenNavigator.isPortrait() && screenNavigator.getCurrentFragmentEntry() == FragmentEnum.NOTE) {
             screenNavigator.toListOfNotesScreen();
-            screenNavigator.resetSelectedPosition();
+            stateStore.resetSelectedPosition();
         } else {
             super.onBackPressed();
         }

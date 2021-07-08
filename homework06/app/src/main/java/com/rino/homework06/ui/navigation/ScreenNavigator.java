@@ -12,18 +12,19 @@ import com.rino.homework06.ui.fragments.NoteFragment;
 
 public class ScreenNavigator {
 
-    private FragmentManager fragmentManager;
+    private final FragmentManager fragmentManager;
 
     private FragmentEnum currentFragmentEntry = FragmentEnum.LIST_OF_NOTES;
 
     private boolean isLandscape;
 
-    private int selectedPosition = -1;
-
-    public void setFragmentManager(FragmentManager fragmentManager) {
+    public ScreenNavigator(FragmentManager fragmentManager) {
         this.fragmentManager = fragmentManager;
     }
 
+    public void setLandscape(boolean landscape) {
+        isLandscape = landscape;
+    }
     public void addFragment(Fragment fragment, String fragmentTag) {
         addFragment(fragment, fragmentTag, R.id.list_of_notes);
     }
@@ -50,24 +51,14 @@ public class ScreenNavigator {
         return currentFragmentEntry;
     }
 
-    public void setLandscape(boolean landscape) {
-        isLandscape = landscape;
+    public void restoreLastFragmentEntry(FragmentEnum fragmentEntry) {
+        if (fragmentEntry != null) {
+            currentFragmentEntry = fragmentEntry;
+        }
     }
 
-    public boolean isLandscape() {
-        return isLandscape;
-    }
-
-    public void setSelectedPosition(int selectedPosition) {
-        this.selectedPosition = selectedPosition;
-    }
-
-    public int getSelectedPosition() {
-        return selectedPosition;
-    }
-
-    public void resetSelectedPosition() {
-        selectedPosition = -1;
+    public boolean isPortrait() {
+        return !isLandscape;
     }
 
     public void toListOfNotesScreen() {
@@ -85,19 +76,19 @@ public class ScreenNavigator {
         addFragment(fragment, ListOfNotesFragment.LIST_OF_NOTES_FRAGMENT_TAG);
     }
 
-    public void toNoteScreen() {
+    public void toNoteScreen(int selectedPosition) {
         currentFragmentEntry = FragmentEnum.NOTE;
         Fragment fragment = NoteFragment.newInstance(selectedPosition);
-        addFragment(fragment, NoteFragment.NOTE_FRAGMENT_TAG, getContainerForAdditionalScreen());
+        addFragment(fragment, NoteFragment.NOTE_FRAGMENT_TAG, getContainerForFragment());
     }
 
     public void toAboutScreen() {
         currentFragmentEntry = FragmentEnum.ABOUT;
         Fragment fragment = AboutFragment.newInstance();
-        addFragment(fragment, AboutFragment.ABOUT_FRAGMENT_TAG, getContainerForAdditionalScreen());
+        addFragment(fragment, AboutFragment.ABOUT_FRAGMENT_TAG, getContainerForFragment());
     }
 
-    private int getContainerForAdditionalScreen() {
+    private int getContainerForFragment() {
         return isLandscape ? R.id.note_container : R.id.list_of_notes;
     }
 }
