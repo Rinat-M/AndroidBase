@@ -197,4 +197,15 @@ public class Calculator implements Parcelable {
         return resultString;
     }
 
+    public Double getOperationResult() {
+        return operationResult;
+    }
+
+    public String getOperand1() {
+        return operand1;
+    }
+
+    public String getOperand2() {
+        return operand2;
+    }
 }
